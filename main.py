@@ -61,4 +61,3 @@ for num in range(1,len(result_num)+1):
 print(sorted(result_num))
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
-#pokus git
