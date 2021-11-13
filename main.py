@@ -1,10 +1,13 @@
+# Import used to get the texts from the task_template file
 import task_template as t
+
 # Dictionary with existing users
 users = {"bob": 123, "ann": "pass123", "mike": "password123", "liz": "pass123"}
+
 # Username and password input from user
 user, password = input("Username: "), input("Password: ")
-print(users[user])
 
+# Checking correct user
 if users.get(user):
     if str(users[user]) == str(password):
         print(f"User {user} was succesfully logged in.")
@@ -14,33 +17,36 @@ if users.get(user):
 else:
     print("Given username does not exists.")
 
-number = int(input("Enter number from 1 to 3: "))-1
-text = t.TEXTS
-print(text)
+print(f"Welcome to the app {user}.", f"We have {len(t.TEXTS)} texts to be analyzed.", sep="\n")
 
-text, text_formated, result, result_num = text[number].split(), [], {"titlecase": 0, "uppercase": 0, "lowercase": 0, "numeric": 0, "numsum": 0}, {}
-print(text)
-for word in text:
-    text_formated.append((word).strip(".,:;\n"))
-print(text_formated)
+# Choosing from texts by entering a number between 1 to 3
+number = int(input(f"Enter number from 1 to {len(t.TEXTS)}: "))-1
 
+
+# Creation of variable text with partialy formated text, result with dict for counting of letters, result_num is
+text, result, result_num = t.TEXTS[number].split(), {
+    "titlecase": 0,
+    "uppercase": 0,
+    "lowercase": 0,
+    "numeric": 0,
+    "numsum": 0
+}, {}
+
+# Further formating of the text usinf for loop in order to create list of words
+text_formated = [word.strip(".,:;\n") for word in text]
+
+# Going through the list and based on condition adding to specific dict key
 for word in text_formated:
     if word[0].isupper():
         result["titlecase"] += 1
-
 # Znějakýho důvodu dá pro jedna 2 místo 1
-for word in text_formated:
-    if word.isupper():
-        result["uppercase"] += 1
-
-for word in text_formated:
-    if word.islower():
-        result["lowercase"] += 1
-
-for word in text_formated:
     if word.isnumeric():
         result["numeric"] += 1
         result["numsum"] += int(word)
+    if word.isupper():
+        result["uppercase"] += 1
+    if word.islower():
+        result["lowercase"] += 1
 
 for word in text_formated:
     if str(len(word)) not in result_num:
@@ -48,16 +54,16 @@ for word in text_formated:
     else:
         result_num[str(len(word))] += 1
 
+
 print(
-    f"""
-    There are {len(text)} words in the selected text.
-    """
+    f"There are {len(text)} words in the selected text.",
+    f"{result}",
+    f"There are {result['titlecase']} words",
+    f"There are {result['uppercase']} words",
+    f"There are {result['lowercase']} words",
+    sep="\n"
 )
 
-#Prasecina
-for num in range(1,len(result_num)+1):
+# Prasecina co vypíše slova dle jejich délky
+for num in range(1, len(result_num)+1):
     print(f"{num}|{result_num[str(num)]*'*'}|{result_num[str(num)]}")
-
-print(sorted(result_num))
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
