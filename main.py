@@ -3,9 +3,10 @@ import task_template as t
 
 # Dictionary with existing users
 users = {"bob": 123, "ann": "pass123", "mike": "password123", "liz": "pass123"}
-
+divider = 40 * "-"
 # Username and password input from user
 user, password = input("Username: "), input("Password: ")
+print(divider)
 
 # Checking correct user
 if users.get(user):
@@ -17,7 +18,7 @@ if users.get(user):
 else:
     print("Given username does not exists.")
 
-print(f"Welcome to the app {user}.", f"We have {len(t.TEXTS)} texts to be analyzed.", sep="\n")
+print(f"Welcome to the app {user}.", divider, f"We have {len(t.TEXTS)} texts to be analyzed.", sep="\n")
 
 # Choosing from texts by entering a number between 1 to 3
 number = int(input(f"Enter number from 1 to {len(t.TEXTS)}: "))-1
@@ -54,16 +55,35 @@ for word in text_formated:
     else:
         result_num[str(len(word))] += 1
 
-
+# Printing our results
 print(
+    divider,
     f"There are {len(text)} words in the selected text.",
-    f"{result}",
-    f"There are {result['titlecase']} words",
-    f"There are {result['uppercase']} words",
-    f"There are {result['lowercase']} words",
+    f"There are {result['titlecase']} titlecase words.",
+    f"There are {result['uppercase']} uppercase words.",
+    f"There are {result['lowercase']} lowercase words.",
+    f"There are {result['numeric']} numeric words.",
+    f"There are {result['numsum']} numeric words.",
+    divider,
     sep="\n"
 )
 
-# Prasecina co vypíše slova dle jejich délky
+print("LEN|  OCCURENCES  |NR.", divider, sep="\n")
+
+# Prasecina co vypíše slova dle jejich délky, neumím formatovat string zda se -_-
 for num in range(1, len(result_num)+1):
-    print(f"{num}|{result_num[str(num)]*'*'}|{result_num[str(num)]}")
+    if len(str(num)) < 2:
+        print(
+            f"  {num}|{result_num[str(num)]*'*'}"
+            f"{' '*(14-(len(result_num[str(num)]*'*')))}|{result_num[str(num)]}"
+        )
+    elif 3 > len(str(num)) > 1:
+        print(
+            f" {num}|{result_num[str(num)] * '*'}"
+            f"{' ' * (14 - (len(result_num[str(num)] * '*')))}|{result_num[str(num)]}"
+        )
+    else:
+        print(
+            f"{num}|{result_num[str(num)] * '*'}"
+            f"{' ' * (14 - (len(result_num[str(num)] * '*')))}|{result_num[str(num)]}"
+        )
