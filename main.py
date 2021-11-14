@@ -10,20 +10,27 @@ print(divider)
 # Checking correct user.
 if users.get(user):
     if str(users[user]) == str(password):
-        print(f"User {user} was succesfully logged in.")
+        print(
+            f"User {user} was succesfully logged in.",
+            f"Welcome to the app {user}.",
+            divider,
+            f"We have {len(t.TEXTS)} texts to be analyzed.",
+            sep="\n"
+        )
     else:
         print("Provided password was not correct!")
         quit()
 else:
     print("Given username does not exists.")
+    quit()
 
-print(f"Welcome to the app {user}.", divider, f"We have {len(t.TEXTS)} texts to be analyzed.", sep="\n")
+# Choosing from texts by entering a number between 1 to 3. Followed by the check of the presence of chosen text.
+number = int(input(f"Enter number from 1 to {len(t.TEXTS)}: ")) - 1
+if number not in (range(1, len(t.TEXTS))):
+    print("The number of text you selected is out of range")
+    quit()
 
-# Choosing from texts by entering a number between 1 to 3.
-number = int(input(f"Enter number from 1 to {len(t.TEXTS)}: "))-1
-
-
-# Creation of variable text with partialy formated text, result with dict for counting of letters, result_num is.
+# Creation of variable text with partially formatted text, result with dict for counting of letters, result_num is.
 text, result, result_num = t.TEXTS[number].split(), {
     "titlecase": 0,
     "uppercase": 0,
@@ -57,7 +64,7 @@ for word in text_formated:
     else:
         result_num[str(len(word))] += 1
 
-# Printing our results
+# Printing out results.
 print(
     divider,
     f"There are {len(text)} words in the selected text.",
@@ -73,11 +80,11 @@ print(
 print("LEN|  OCCURENCES  |NR.", divider, sep="\n")
 
 # Prasecina co vypíše slova dle jejich délky, neumím formatovat string zda se -_-
-for num in range(1, len(result_num)+1):
+for num in range(1, len(result_num) + 1):
     if len(str(num)) < 2:
         print(
-            f"  {num}|{result_num[str(num)]*'*'}"
-            f"{' '*(14-(len(result_num[str(num)]*'*')))}|{result_num[str(num)]}"
+            f"  {num}|{result_num[str(num)] * '*'}"
+            f"{' ' * (14 - (len(result_num[str(num)] * '*')))}|{result_num[str(num)]}"
         )
     elif 3 > len(str(num)) > 1:
         print(
