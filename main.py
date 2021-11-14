@@ -1,14 +1,13 @@
-# Import used to get the texts from the task_template file
+# Import used to get the texts from the task_template file.
 import task_template as t
 
-# Dictionary with existing users
-users = {"bob": 123, "ann": "pass123", "mike": "password123", "liz": "pass123"}
-divider = 40 * "-"
+# Dictionary with existing users and divider
+users, divider = {"bob": 123, "ann": "pass123", "mike": "password123", "liz": "pass123"}, 40 * "-"
 # Username and password input from user
 user, password = input("Username: "), input("Password: ")
 print(divider)
 
-# Checking correct user
+# Checking correct user.
 if users.get(user):
     if str(users[user]) == str(password):
         print(f"User {user} was succesfully logged in.")
@@ -20,11 +19,11 @@ else:
 
 print(f"Welcome to the app {user}.", divider, f"We have {len(t.TEXTS)} texts to be analyzed.", sep="\n")
 
-# Choosing from texts by entering a number between 1 to 3
+# Choosing from texts by entering a number between 1 to 3.
 number = int(input(f"Enter number from 1 to {len(t.TEXTS)}: "))-1
 
 
-# Creation of variable text with partialy formated text, result with dict for counting of letters, result_num is
+# Creation of variable text with partialy formated text, result with dict for counting of letters, result_num is.
 text, result, result_num = t.TEXTS[number].split(), {
     "titlecase": 0,
     "uppercase": 0,
@@ -33,19 +32,22 @@ text, result, result_num = t.TEXTS[number].split(), {
     "numsum": 0
 }, {}
 
-# Further formating of the text usinf for loop in order to create list of words
+# Further formating of the text usinf for loop in order to create list of words.
 text_formated = [word.strip(".,:;\n") for word in text]
 
-# Going through the list and based on condition adding to specific dict key
+# Going through the list and based on condition adding to specific dict key.
 for word in text_formated:
+    # Checks whther the first letter is capital. Number check could be used here as well.
     if word[0].isupper():
         result["titlecase"] += 1
-# Znějakýho důvodu dá pro jedna 2 místo 1
+    # Checks whether the string is a number/numeric.
     if word.isnumeric():
         result["numeric"] += 1
         result["numsum"] += int(word)
-    if word.isupper():
+    # Checks whether all the letters are capital and checks whether the word contains any number.
+    if word.isupper() and not any([True for sign in word if sign.isnumeric()]):
         result["uppercase"] += 1
+    # Checks whether are all the letters in the word lower.
     if word.islower():
         result["lowercase"] += 1
 
