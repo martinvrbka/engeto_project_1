@@ -26,7 +26,7 @@ else:
 
 # Choosing from texts by entering a number between 1 to 3. Followed by the check of the presence of chosen text.
 number = int(input(f"Enter number from 1 to {len(t.TEXTS)}: ")) - 1
-if number not in (range(1, len(t.TEXTS))):
+if number not in (range(0, len(t.TEXTS))):
     print("The number of text you selected is out of range")
     quit()
 
@@ -77,22 +77,27 @@ print(
     sep="\n"
 )
 
-print("LEN|  OCCURENCES  |NR.", divider, sep="\n")
+print("LEN|    OCCURENCES    |NR.", divider, sep="\n")
 
-# Prasecina co vypíše slova dle jejich délky, neumím formatovat string zda se -_-
-for num in range(1, len(result_num) + 1):
-    if len(str(num)) < 2:
-        print(
-            f"  {num}|{result_num[str(num)] * '*'}"
-            f"{' ' * (14 - (len(result_num[str(num)] * '*')))}|{result_num[str(num)]}"
-        )
-    elif 3 > len(str(num)) > 1:
-        print(
-            f" {num}|{result_num[str(num)] * '*'}"
-            f"{' ' * (14 - (len(result_num[str(num)] * '*')))}|{result_num[str(num)]}"
-        )
+# This string is fairly static and made for these 3 given text, however it could be made variable based on length of the
+# largest number. However my attempts although fairly successful made the code also quite complex.
+for num in range(0, len(result_num) + 1):
+    if result_num.get(str(num)):
+        if len(str(num)) < 2:
+            print(
+                f"  {num}|{result_num[str(num)] * '*'}"
+                f"{' ' * (14 - (len(result_num[str(num)] * '*')))}    |{result_num[str(num)]}"
+            )
+        elif 3 > len(str(num)) >= 0:
+            print(
+                f" {num}|{result_num[str(num)] * '*'}"
+                f"{' ' * (14 - (len(result_num[str(num)] * '*')))}    |{result_num[str(num)]}"
+            )
+        else:
+            print(
+                f"{num}|{result_num[str(num)] * '*'}"
+                f"{' ' * (14 - (len(result_num[str(num)] * '*')))}    |{result_num[str(num)]}"
+            )
     else:
-        print(
-            f"{num}|{result_num[str(num)] * '*'}"
-            f"{' ' * (14 - (len(result_num[str(num)] * '*')))}|{result_num[str(num)]}"
-        )
+        continue
+
