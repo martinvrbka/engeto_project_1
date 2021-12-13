@@ -26,6 +26,7 @@ else:
 
 # Choosing from texts by entering a number between 1 to 3. Followed by the check of the presence of chosen text.
 number = input(f"Enter number from 1 to {len(t.TEXTS)}: ")
+# Checking whether the entered value is correct or not
 while number not in ["1", "2", "3"]:
     print("Entered value is incorrect it needs to be integer from 1 to 3.")
     number = input(f"Enter number from 1 to {len(t.TEXTS)}: ")
