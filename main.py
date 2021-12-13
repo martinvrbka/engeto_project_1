@@ -25,7 +25,13 @@ else:
     quit()
 
 # Choosing from texts by entering a number between 1 to 3. Followed by the check of the presence of chosen text.
-number = int(input(f"Enter number from 1 to {len(t.TEXTS)}: ")) - 1
+number = input(f"Enter number from 1 to {len(t.TEXTS)}: ")
+while number not in ["1", "2", "3"]:
+    print("Entered value is incorrect it needs to be integer from 1 to 3.")
+    number = input(f"Enter number from 1 to {len(t.TEXTS)}: ")
+else:
+    number = int(number) - 1
+
 if number not in (range(0, len(t.TEXTS))):
     print("The number of text you selected is out of range")
     quit()
